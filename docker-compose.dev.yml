@@ -30,7 +30,7 @@ services:
     working_dir: /usr/src/service
     command: yarn start
     ports:
-      - 4001:4001
+      - 4000:3000
   authenapi:
     container_name: authen_api
     restart: always
@@ -44,7 +44,7 @@ services:
     working_dir: /usr/src/service
     command: yarn start
     ports:
-      - 5001:5001
+      - 5001:3000
   accountapi:
     container_name: account_api
     restart: always
@@ -60,7 +60,7 @@ services:
     working_dir: /usr/src/service
     command: yarn start
     ports:
-      - 5002:5002
+      - 5002:3000
   resourceapi:
     container_name: resource_api
     restart: always
@@ -74,7 +74,7 @@ services:
     working_dir: /usr/src/service
     command: yarn start
     ports:
-      - 5003:5003
+      - 5003:3000
   mongo:
     container_name: mongo
     restart: always

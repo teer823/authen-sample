@@ -1,9 +1,18 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-/* GET home page. */
+const middleware = require('./middlewares/authen.js')
+
+router.use(middleware.checkAuth)
+
 router.get('/', function(req, res, next) {
-  res.json('SampleApi')
+  res.json({
+    resource: {
+      name: 'ResourceApi',
+      user: req.user
+    }
+  })
 });
 
-module.exports = router;
+
+module.exports = router
