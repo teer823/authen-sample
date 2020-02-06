@@ -1,0 +1,24 @@
+version: '3'
+services:
+  frontend:
+    container_name: frontend
+    image: node:latest
+    volumes:
+      - ./FrontEnd:/usr/src/service
+    environment:
+      - NODE_ENV=development
+    working_dir: /usr/src/service
+    command: yarn start
+    ports:
+      - 3000:3000
+  webapi:
+    container_name: webapi
+    image: node:latest
+    volumes:
+      - ./WebApi:/usr/src/service
+    environment:
+      - NODE_ENV=development
+    working_dir: /usr/src/service
+    command: yarn start
+    ports:
+      - 4000:4000
