@@ -1,7 +1,13 @@
 version: '3'
+networks:
+  internal_network:
+    driver: bridge
 services:
   frontend:
     container_name: frontend
+    restart: always
+    networks: 
+      - internal_network
     image: node:latest
     volumes:
       - ./FrontEnd:/usr/src/service
@@ -12,7 +18,10 @@ services:
     ports:
       - 3000:3000
   webapi:
-    container_name: webapi
+    container_name: web_api
+    restart: always
+    networks: 
+      - internal_network
     image: node:latest
     volumes:
       - ./WebApi:/usr/src/service
@@ -21,4 +30,69 @@ services:
     working_dir: /usr/src/service
     command: yarn start
     ports:
-      - 4000:4000
+      - 4001:4001
+  authenapi:
+    container_name: authen_api
+    restart: always
+    networks: 
+      - internal_network
+    image: node:latest
+    volumes:
+      - ./AuthenApi:/usr/src/service
+    environment:
+      - NODE_ENV=development
+    working_dir: /usr/src/service
+    command: yarn start
+    ports:
+      - 5001:5001
+  accountapi:
+    container_name: account_api
+    restart: always
+    networks: 
+      - internal_network
+    depends_on: 
+      - mongo
+    image: node:latest
+    volumes:
+      - ./AccountApi:/usr/src/service
+    environment:
+      - NODE_ENV=development
+    working_dir: /usr/src/service
+    command: yarn start
+    ports:
+      - 5002:5002
+  resourceapi:
+    container_name: resource_api
+    restart: always
+    networks: 
+      - internal_network
+    image: node:latest
+    volumes:
+      - ./ResourceApi:/usr/src/service
+    environment:
+      - NODE_ENV=development
+    working_dir: /usr/src/service
+    command: yarn start
+    ports:
+      - 5003:5003
+  mongo:
+    container_name: mongo
+    restart: always
+    networks: 
+      - internal_network
+    build: ./MongoDB/
+    volumes: 
+      - ./MongoDB/data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    ports:
+      - 27017:27017
+  redis:
+    container_name: redis
+    restart: always
+    networks:
+      - internal_network
+    build: ./Redis/
+    ports:
+      - 6379:6379
