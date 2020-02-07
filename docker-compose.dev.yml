@@ -13,6 +13,7 @@ services:
       - ./FrontEnd:/usr/src/service
     environment:
       - NODE_ENV=development
+      - API_ENDPOINT=http://webapi
     working_dir: /usr/src/service
     command: yarn start
     ports:
@@ -27,6 +28,10 @@ services:
       - ./WebApi:/usr/src/service
     environment:
       - NODE_ENV=development
+      - ACCOUNT_ENDPOINT=http://accountapi:3000
+      - AUTHEN_ENDPOINT=http://authenapi:3000
+      - RESOURCE_ENDPOINT=http://resourceapi:3000
+      - REDIS_ENDPOINT=redis://redis
     working_dir: /usr/src/service
     command: yarn start
     ports:
@@ -41,6 +46,7 @@ services:
       - ./AuthenApi:/usr/src/service
     environment:
       - NODE_ENV=development
+      - ACCOUNT_ENDPOINT=http://accountapi:5002
     working_dir: /usr/src/service
     command: yarn start
     ports:
@@ -57,6 +63,9 @@ services:
       - ./AccountApi:/usr/src/service
     environment:
       - NODE_ENV=development
+      - MONGO_ENDPOINT=mongo://mongo
+      - MONGO_USER=root
+      - MONGO_PASSWORD=password
     working_dir: /usr/src/service
     command: yarn start
     ports:
@@ -71,6 +80,7 @@ services:
       - ./ResourceApi:/usr/src/service
     environment:
       - NODE_ENV=development
+      - ACCOUNT_ENDPOINT=http://accountapi:5002
     working_dir: /usr/src/service
     command: yarn start
     ports:

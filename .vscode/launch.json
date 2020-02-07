@@ -12,7 +12,10 @@
         "<node_internals>/**"
       ],
       "env": {
-        "PORT": "5002"
+        "PORT": "5002",
+        "MONGO_ENDPOINT": "mongo://localhost:27017",
+        "MONGO_USER": "root",
+        "MONGO_PASSWORD": "password"
       },
       "program": "${workspaceFolder}/AccountApi/bin/www"
     },
@@ -24,7 +27,8 @@
         "<node_internals>/**"
       ],
       "env": {
-        "PORT": "5001"
+        "PORT": "5001",
+        "ACCOUNT_ENDPOINT": "http://localhost:5002",
       },
       "program": "${workspaceFolder}/AuthenApi/bin/www"
     },
@@ -36,7 +40,8 @@
         "<node_internals>/**"
       ],
       "env": {
-        "PORT": "5003"
+        "PORT": "5003",
+        "ACCOUNT_ENDPOINT": "http://localhost:5002",
       },
       "program": "${workspaceFolder}/ResourceApi/bin/www"
     },
@@ -48,7 +53,11 @@
         "<node_internals>/**"
       ],
       "env": {
-        "PORT": "4000"
+        "PORT": "4000",
+        "RESOURCE_ENDPOINT": "http://localhost:5003",
+        "AUTHEN_ENDPOINT": "http://localhost:5001",
+        "ACCOUNT_ENDPOINT": "http://localhost:5002",
+        "REDIS_ENDPOINT": "redis://localhost"
       },
       "program": "${workspaceFolder}/WebApi/bin/www"
     }

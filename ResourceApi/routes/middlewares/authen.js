@@ -20,7 +20,7 @@ function checkAuth (req, res, next) {
     }
 
     if (!user) { 
-      return res.status(400).send('UnAuthorized')
+      return res.status(403).send('UnAuthorized')
     }
 
     req.user = {
