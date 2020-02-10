@@ -5,6 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch Chrome FrontEnd",
+      "url": "http://localhost:3000",
+      "webRoot": "${workspaceFolder}/FrontEnd"
+    },
+    {
       "type": "node",
       "request": "launch",
       "name": "Launch Account API",
@@ -29,6 +36,7 @@
       "env": {
         "PORT": "5001",
         "ACCOUNT_ENDPOINT": "http://localhost:5002",
+        "JWT_SECRET": "u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z$C&F)J@NcQfTjWn"
       },
       "program": "${workspaceFolder}/AuthenApi/bin/www"
     },
@@ -42,6 +50,7 @@
       "env": {
         "PORT": "5003",
         "ACCOUNT_ENDPOINT": "http://localhost:5002",
+        "JWT_SECRET": "u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z$C&F)J@NcQfTjWn"
       },
       "program": "${workspaceFolder}/ResourceApi/bin/www"
     },
@@ -57,7 +66,8 @@
         "RESOURCE_ENDPOINT": "http://localhost:5003",
         "AUTHEN_ENDPOINT": "http://localhost:5001",
         "ACCOUNT_ENDPOINT": "http://localhost:5002",
-        "REDIS_ENDPOINT": "redis://localhost"
+        "REDIS_ENDPOINT": "redis://localhost",
+        "JWT_SECRET": "u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z$C&F)J@NcQfTjWn"
       },
       "program": "${workspaceFolder}/WebApi/bin/www"
     }

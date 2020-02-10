@@ -1,15 +1,16 @@
-export const getSessionState = store => store.session;
+export const getUserState = store => store.user;
 
-export const getSession = store => 
-  getSessionState(store) ? getSessionState(store).session : {}
+export const getUserToken = store => getUserState(store) ? getUserState(store).token : {}
 
-export const isLoadingSession = store => {
-  return getSessionState(store) ? getSessionState(store).loading : false
+export const getUserInfo = store => getUserState(store) ? getUserState(store).info : {}
+
+export const getDataState = store => {
+  return store.data;
 }
 
-export const getDataState = store => store.data;
-export const getData = store => 
-  getDataState(store) ? getDataState(store).data: {}
+export const getData = store => {
+  return getDataState(store) ? getDataState(store).data: {}
+}
 
 export const isLoadingData = store => {
   return getDataState(store) ? getDataState(store).loading : false

@@ -1,17 +1,21 @@
 import React from "react";
 import Router from './Router.jsx'
-import axios from 'axios'
 import { connect } from "react-redux";
+import Cookie from 'universal-cookie'
 
-import { exchangeAuthCode, clearSession } from "./redux/actions/session.js";
-import { getSession } from "./redux/selectors";
+import { setUser } from "./redux/actions/user.js";
 
 class App extends React.Component {
   componentDidMount() {
     //Call to get XSRF-Token
-    const initialUrl = `${process.env.REACT_APP_TARGET_SERVER}`
+    const cookies = new Cookie()
+    const cookieUser = cookies.get('user')
+    console.log(cookieUser)
+    if(cookieUser) {
+      this.props.setUser(cookieUser)
+    }
     
-    axios.get(initialUrl, {
+    /*axios.get(initialUrl, {
       withCredentials: true
     }).then((result) => {
       this.props.exchangeAuthCode().then(() => {
@@ -22,9 +26,9 @@ class App extends React.Component {
       })
     }).catch((error) => {
       console.log(error)
-    })
+    })*/
 
-    window.addEventListener('message', (event) => {
+    /* window.addEventListener('message', (event) => {
       if(event.origin !== window.origin) {
         return;
       }
@@ -39,7 +43,7 @@ class App extends React.Component {
         default:
           break;
       }
-    });
+    }); */
   }
   render() {
     return (
@@ -48,12 +52,13 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = store => {
-  const session = getSession(store);
-  return { session };
-};
+/*const mapStateToProps = store => {
+  const userToken = getUserToken(store);
+  const userInfo = getUserInfo(store)
+  return { userToken, userInfo };
+};*/
 
 export default connect(
-  mapStateToProps,
-  { exchangeAuthCode, clearSession }
+  null,
+  { setUser }
 )(App)

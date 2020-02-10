@@ -22,20 +22,19 @@ export const requestData = () => {
     dispatch(clearData())
     dispatch(loadingData())
     return new Promise((resolve, reject) => {
-      const requestUrl = `${process.env.REACT_APP_TARGET_SERVER}/api/user`;
-      const data = {}
+      const requestUrl = `${process.env.REACT_APP_API_ENDPOINT}/resource`;
       const state = getState()
       let options = {
-        withCredentials: true,
+        withCredentials: false, //may need but also require to set specific CORS
       }
 
-      if(state.session && state.session.session && state.session.session.code) {
+      if(state.user && state.user.token) {
         options.headers = {
-          Authorization: `Bearer ${state.session.session.code}`
+          Authorization: `Bearer ${state.user.token}`
         }
       }
 
-      axios.post(requestUrl, data, options).then((result) => {
+      axios.get(requestUrl, options).then((result) => {
         dispatch(setData(result))
         resolve()
       }).catch((error) => {

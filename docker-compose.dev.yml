@@ -13,7 +13,7 @@ services:
       - ./FrontEnd:/usr/src/service
     environment:
       - NODE_ENV=development
-      - API_ENDPOINT=http://webapi
+      - REACT_APP_API_ENDPOINT=http://localhost:4000
     working_dir: /usr/src/service
     command: yarn start
     ports:
@@ -32,10 +32,11 @@ services:
       - AUTHEN_ENDPOINT=http://authenapi:3000
       - RESOURCE_ENDPOINT=http://resourceapi:3000
       - REDIS_ENDPOINT=redis://redis
+      - JWT_SECRET=u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z$C&F)J@NcQfTjWn
     working_dir: /usr/src/service
     command: yarn start
     ports:
-      - 4000:3000
+      - 4000:4000
   authenapi:
     container_name: authen_api
     restart: always
@@ -47,6 +48,7 @@ services:
     environment:
       - NODE_ENV=development
       - ACCOUNT_ENDPOINT=http://accountapi:5002
+      - JWT_SECRET=u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z$C&F)J@NcQfTjWn
     working_dir: /usr/src/service
     command: yarn start
     ports:
@@ -81,6 +83,7 @@ services:
     environment:
       - NODE_ENV=development
       - ACCOUNT_ENDPOINT=http://accountapi:5002
+      - JWT_SECRET=u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z$C&F)J@NcQfTjWn
     working_dir: /usr/src/service
     command: yarn start
     ports:

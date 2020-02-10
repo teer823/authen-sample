@@ -1,38 +1,40 @@
 import React, { Component } from 'react'
 import { connect } from "react-redux";
-import { getSession } from "../redux/selectors";
+import { getUserInfo, getData } from "../redux/selectors";
 
-import SignInButton from '../components/SignInButton'
+import LoginForm from "../components/LoginForm.jsx"
+import RequestButton from '../components/RequestButton'
 
 class Home extends Component {
 
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.message = 'Home'
   }
 
-  render () {
-    return (
-      <>
-        <h2>{this.message}</h2>
-        <div>
-          <SignInButton />
-        </div>
-        <div>
-          <pre>
-            <code>
-              {this.props.session ? JSON.stringify(this.props.session, null, 4) : ''}
-            </code>
-          </pre>
-        </div>
-      </>
-    )
+  render() {
+    if(!this.props.userInfo) {
+      return <LoginForm />
+    } else {
+      return (
+        <>
+              <h1> Greeting ! {this.props.userInfo.name}</h1>
+              <div>
+                <RequestButton />
+                <pre>
+                  <code>{JSON.stringify(this.props.data, null, 4)}</code>
+                </pre>
+              </div> 
+            </>
+      )
+    }
   }
 }
 
 const mapStateToProps = store => {
-  const session = getSession(store);
-  return { session };
+  const userInfo = getUserInfo(store);
+  const data = getData(store);
+  return { userInfo, data };
 };
 
 export default connect(

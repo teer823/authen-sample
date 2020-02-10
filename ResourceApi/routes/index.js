@@ -14,7 +14,7 @@ router.get('/', middleware.checkAuth, function(req, res, next) {
   })
 });
 
-router.get('/resource', function(req, res, next) {
+router.get('/info', function(req, res, next) {
   res.send('resource api')
 })
 

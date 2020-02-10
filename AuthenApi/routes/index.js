@@ -10,10 +10,11 @@ router.get('/', function(req, res, next) {
 
 router.post('/login', function(req, res, next) {
   let { email } = req.body;
+  let name = email.match(/^([^@]*)@/)[1];
   let opts = {}
-  opts.expiresIn = 60 * 5;  //token expires in 5min
-  const secret = "SECRET_KEY" //normally stored in process.env.secret
-  const token = jwt.sign({ email }, secret, opts);
+  opts.expiresIn = 60 * 5;  //token expires in 1min
+  const secret = process.env.JWT_SECRET || "SECRET_KEY" //normally stored in process.env.secret
+  const token = jwt.sign({ email, name }, secret, opts);
   return res.status(200).json({
       message: "Auth Passed",
       token

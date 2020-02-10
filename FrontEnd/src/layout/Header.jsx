@@ -1,14 +1,12 @@
 import React from 'react'
 
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 import { 
-  Navbar,
-  Nav,
-  NavDropdown
+  Navbar
 } from "react-bootstrap";
 
-import SignInButton from '../components/SignInButton.jsx'
+// import SignInButton from '../components/SignInButton.jsx'
 
 export default function Header() {
   return (
@@ -16,7 +14,8 @@ export default function Header() {
       <Navbar.Brand>Sample UI</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
+        {
+        /*<Nav className="mr-auto">
           <Nav.Link as={Link} to="/">Home</Nav.Link>
           <Nav.Link as={Link} to="/about">About</Nav.Link>
           <Nav.Link as={Link} to="/topics">Topics</Nav.Link>
@@ -31,7 +30,8 @@ export default function Header() {
         </Nav>
         <Nav>
             <SignInButton />
-        </Nav>
+        </Nav> */
+        }
       </Navbar.Collapse>
     </Navbar>
   )
