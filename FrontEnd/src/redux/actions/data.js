@@ -34,13 +34,21 @@ export const requestData = () => {
         }
       }
 
-      axios.get(requestUrl, options).then((result) => {
-        dispatch(setData(result))
+      axios.get(requestUrl, options).then((response) => {
+        dispatch(setData(response))
         resolve()
       }).catch((error) => {
-        console.log('error')
-        dispatch(setData(error))
-        reject()
+        if(error.response.status === 401) {
+          // Unauthorize , try to refresh token once before 
+          reject({
+            action: 'refresh'
+          })
+        } else {
+          reject({
+            action: 'login'
+          })
+        }
+        
       })
     })
   }

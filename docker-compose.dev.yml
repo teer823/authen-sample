@@ -32,7 +32,7 @@ services:
       - AUTHEN_ENDPOINT=http://authenapi:3000
       - RESOURCE_ENDPOINT=http://resourceapi:3000
       - REDIS_ENDPOINT=redis://redis
-      - JWT_SECRET=u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z$C&F)J@NcQfTjWn
+      - JWT_SECRET=u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z&X&F)J@NcQfTjWn
     working_dir: /usr/src/service
     command: yarn start
     ports:
@@ -47,8 +47,8 @@ services:
       - ./AuthenApi:/usr/src/service
     environment:
       - NODE_ENV=development
-      - ACCOUNT_ENDPOINT=http://accountapi:5002
-      - JWT_SECRET=u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z$C&F)J@NcQfTjWn
+      - ACCOUNT_ENDPOINT=http://accountapi:3000
+      - JWT_SECRET=u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z&X&F)J@NcQfTjWn
     working_dir: /usr/src/service
     command: yarn start
     ports:
@@ -65,7 +65,7 @@ services:
       - ./AccountApi:/usr/src/service
     environment:
       - NODE_ENV=development
-      - MONGO_ENDPOINT=mongo://mongo
+      - MONGO_ENDPOINT=mongodb://mongo/sample
       - MONGO_USER=root
       - MONGO_PASSWORD=password
     working_dir: /usr/src/service
@@ -83,7 +83,7 @@ services:
     environment:
       - NODE_ENV=development
       - ACCOUNT_ENDPOINT=http://accountapi:5002
-      - JWT_SECRET=u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z$C&F)J@NcQfTjWn
+      - JWT_SECRET=u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z&X&F)J@NcQfTjWn
     working_dir: /usr/src/service
     command: yarn start
     ports:

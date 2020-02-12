@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
+import { refresh } from "../redux/actions/user.js"
 import { requestData } from "../redux/actions/data.js";
 import { getData, isLoadingData } from "../redux/selectors";
 
@@ -9,10 +10,18 @@ import {
 
 class RequestButton extends React.Component {
 
-  handleRequestData = () => {
+  handleRequestData = (retry) => {
     this.props.requestData().then(() => {
-      console.log('load data completed')
       console.log(this.props.data)
+    }).catch((error) => {
+      if(error.action === 'refresh') {
+        this.props.refresh().then(() => {
+          console.log('-refresh success-')
+          this.props.requestData()
+        }).catch(() => { 
+          console.log('-refresh-failed')
+        })
+      }
     })
   }
 
@@ -33,6 +42,6 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { requestData }
+  { requestData, refresh}
 )(RequestButton);
 //export default RequestButton

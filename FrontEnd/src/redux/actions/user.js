@@ -21,7 +21,7 @@ export const clearUser = () => {
 export const login = (email, password) => {
   return (dispatch) => {
     return new Promise((resolve ,reject) => {
-      const loginUrl = `${process.env.REACT_APP_API_ENDPOINT}/login`
+      const loginUrl = `${process.env.REACT_APP_API_ENDPOINT}/auth/login`
       const data = {
         email,
         password
@@ -38,8 +38,37 @@ export const login = (email, password) => {
         dispatch(setUser(userInfo))
         resolve(userInfo)
       }).catch((error) => {
-        console.log(error);
-        reject(error)
+        reject(error.response)
+      })
+    })
+  }
+}
+
+export const refresh = () => {
+  return (dispatch, getState) => {
+    return new Promise((resolve ,reject) => {
+      const refreshUrl = `${process.env.REACT_APP_API_ENDPOINT}/auth/refresh`
+      const state = getState()
+      let options = {
+        withCredentials: false, //may need but also require to set specific CORS
+      }
+
+      if(state.user && state.user.token) {
+        options.headers = {
+          Authorization: `Bearer ${state.user.token}`
+        }
+      }
+
+      axios.post(refreshUrl, {}, options).then((response) => {
+        const userInfo = {
+          token: response.data.token,
+          info: state.user.info
+        }
+        dispatch(setUser(userInfo))
+        resolve()
+      }).catch((error) => {
+        dispatch(clearUser())
+        reject(error.response)
       })
     })
   }

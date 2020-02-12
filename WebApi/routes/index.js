@@ -8,44 +8,46 @@ var resourceProxy = proxy('/resource', {
   pathRewrite: {'^/resource' : ''},
   onProxyReq(proxyReq, req, res) {
     proxyReq.setHeader('Authorization', res.locals.jwt)
-  },
-  onProxyRes(proxyRes, req, res) {
-    console.log(proxyRes)
   }
 });
 
-var loginProxy = proxy('/login', {
+var authProxy = proxy('/auth', {
   target: process.env.AUTHEN_ENDPOINT || 'http://localhost:5001',
+  pathRewrite: {'^/auth' : ''},
   changeOrigin: true,
   selfHandleResponse: true,
+  onProxyReq: function (proxyReq, req, res) {
+    if(res.locals && res.locals.jwt) {
+      proxyReq.setHeader('Authorization', res.locals.jwt)
+    }
+  },
   onProxyRes: function (proxyRes, req, res) {
     if(proxyRes.statusCode === 200) {
-      //Unauthorize, remove jwt token
       let body = Buffer.from('')
       proxyRes.on('data', function(data) {
         body = Buffer.concat([body, data]);
       });
       proxyRes.on('end', function() {
         body = body.toString();
-        const jwtToken = authUtil.extractJwt(body)
-        const data = authUtil.processJwtToken(jwtToken)
+        const result = authUtil.processAuthResponse(body, res.locals ? res.locals.safeToken : null )
       
-        if(data) {
-          res.send(data)
+        if(result) {
+          res.send(result)
         } else {
           res.status(500).send('Login Error')
         }
       });
+    } else {
+      res.sendStatus(proxyRes.statusCode);
     }
   }
 });
-
 
 router.get('/', function(req, res, next) {
   res.json({name: 'WebApi'})
 });
 
 router.use('/resource', authUtil.exchangeToken, resourceProxy)
-router.use('/login', loginProxy)
+router.use('/auth', authUtil.exchangeToken, authProxy)
 
 module.exports = router

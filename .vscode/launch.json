@@ -20,7 +20,7 @@
       ],
       "env": {
         "PORT": "5002",
-        "MONGO_ENDPOINT": "mongo://localhost:27017",
+        "MONGO_ENDPOINT": "mongodb://localhost:27017/sample",
         "MONGO_USER": "root",
         "MONGO_PASSWORD": "password"
       },
@@ -36,7 +36,7 @@
       "env": {
         "PORT": "5001",
         "ACCOUNT_ENDPOINT": "http://localhost:5002",
-        "JWT_SECRET": "u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z$C&F)J@NcQfTjWn"
+        "JWT_SECRET": "u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z&X&F)J@NcQfTjWn"
       },
       "program": "${workspaceFolder}/AuthenApi/bin/www"
     },
@@ -50,7 +50,7 @@
       "env": {
         "PORT": "5003",
         "ACCOUNT_ENDPOINT": "http://localhost:5002",
-        "JWT_SECRET": "u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z$C&F)J@NcQfTjWn"
+        "JWT_SECRET": "u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z&X&F)J@NcQfTjWn"
       },
       "program": "${workspaceFolder}/ResourceApi/bin/www"
     },
@@ -67,7 +67,7 @@
         "AUTHEN_ENDPOINT": "http://localhost:5001",
         "ACCOUNT_ENDPOINT": "http://localhost:5002",
         "REDIS_ENDPOINT": "redis://localhost",
-        "JWT_SECRET": "u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z$C&F)J@NcQfTjWn"
+        "JWT_SECRET": "u7x!A%D*F-JaNdRgUkXp2s5v8y/B?E(H+KbPeShVmYq3t6w9z&X&F)J@NcQfTjWn"
       },
       "program": "${workspaceFolder}/WebApi/bin/www"
     }
