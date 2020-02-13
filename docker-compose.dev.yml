@@ -9,6 +9,8 @@ services:
     networks: 
       - internal_network
     image: node:latest
+    depends_on: 
+      - webapi
     volumes:
       - ./FrontEnd:/usr/src/service
     environment:
@@ -24,11 +26,14 @@ services:
     networks: 
       - internal_network
     image: node:latest
+    depends_on: 
+      - redis
+      - authenapi
+      - resourceapi
     volumes:
       - ./WebApi:/usr/src/service
     environment:
       - NODE_ENV=development
-      - ACCOUNT_ENDPOINT=http://accountapi:3000
       - AUTHEN_ENDPOINT=http://authenapi:3000
       - RESOURCE_ENDPOINT=http://resourceapi:3000
       - REDIS_ENDPOINT=redis://redis
@@ -43,6 +48,8 @@ services:
     networks: 
       - internal_network
     image: node:latest
+    depends_on: 
+      - accountapi
     volumes:
       - ./AuthenApi:/usr/src/service
     environment:
